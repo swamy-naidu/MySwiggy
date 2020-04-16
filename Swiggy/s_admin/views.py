@@ -77,15 +77,25 @@ def save_city(request):
 
 
 def update_city(request):
-    return None
+    sno = request.GET.get("sno")
+    sname = request.GET.get("sname")
+    d1 = {"sno": sno, "sname": sname}
+    return render(request, "s_admin/open_city.html", {"update_data": d1, "sdata": CityModel.objects.all()})
+
 
 
 def update_city_data(request):
-    return None
+    sno = request.POST.get("s1")
+    sname = request.POST.get("s2")
+    CityModel.objects.filter(city_no=sno).update(city_name=sname)
+    return redirect('open_city')
 
 
 def delete_city(request):
-    return None
+    sno = request.GET.get("sno")
+    CityModel.objects.filter(city_no=sno).delete()
+    return redirect('open_city')
+
 
 
 def open_area(request):
@@ -112,3 +122,23 @@ def save_type(request):
         return redirect('open_type')
     else:
         return render(request, "s_admin/open_type.html", {"sf": sf})
+
+
+def update_area(request):
+    sno = request.GET.get("sno")
+    sname = request.GET.get("sname")
+    d1 = {"sno": sno, "sname": sname}
+    return render(request, "s_admin/open_area.html", {"update_data": d1, "sdata": AreaModel.objects.all()})
+
+
+def update_area_data(request):
+    sno = request.POST.get("s1")
+    sname = request.POST.get("s2")
+    AreaModel.objects.filter(area_no=sno).update(area_name=sname)
+    return redirect('open_area')
+
+
+def delete_area(request):
+    sno = request.GET.get("sno")
+    AreaModel.objects.filter(area_no=sno).delete()
+    return redirect('open_area')
